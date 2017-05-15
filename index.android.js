@@ -9,16 +9,38 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Button,
+  Alert
 } from 'react-native';
 
 export default class PlatziMusic extends Component {
+
+  onPress() {
+    Alert.alert(
+      'Alert Title',
+      'My Alert Msg',
+      [
+        {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ],
+      { cancelable: false }
+    )
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+          Welcome to React Platzi Music 2!
         </Text>
+        <Button
+          onPress={this.onPress}
+          title="Learn More"
+          color="#841584"
+          accessibilityLabel="Learn more about this purple button"
+        />
         <Text style={styles.instructions}>
           To get started, edit index.android.js
         </Text>
