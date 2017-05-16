@@ -3,8 +3,11 @@ import {
   StyleSheet,
   View,
   ScrollView,
-  ListView
+  ListView,
+  TouchableOpacity
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
+
 import ArtistBox from './ArtistBox';
 
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -35,6 +38,9 @@ export default class ArtistList extends Component {
     })  
   }
 
+  handlePress(artist) {
+    Actions.artistDetail({artist});
+  }
 
   render() {
 
@@ -42,7 +48,14 @@ export default class ArtistList extends Component {
       <ListView
         enableEmptySections={true}
         dataSource={this.state.dataSource}
-        renderRow={(artist) => <ArtistBox artist={artist} />}
+        renderRow={(artist) => {
+          return (
+            <TouchableOpacity
+              onPress={ () => this.handlePress(artist)}>
+              <ArtistBox artist={artist} />
+            </TouchableOpacity>
+          )
+        } }
       />
     )
   }
