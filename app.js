@@ -6,6 +6,7 @@ import {
   View,
   Image
 } from 'react-native';
+import ArtistBox from './ArtistBox';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -13,29 +14,22 @@ export default class PlatziMusic extends Component {
 
 
   render() {
-      const image = 'http://mxcdn02.mundotkm.com/2015/11/Paty-1.jpg';
-      const name = 'Paty Cantu';
-      const likes = 200;
-      const comments = 140;
+
+      const artist = {
+        image: 'http://mxcdn02.mundotkm.com/2015/11/Paty-1.jpg',
+        name: 'Paty Cantu',
+        likes: 2000,
+        comments: 140,
+      }
 
     return (
       <View style={styles.container}>
-        <View style={styles.artistBox}>
-            <Image style={styles.image} source={{uri: image}} />
-            <View style={styles.info}>
-                <Text style={styles.name}>{name}</Text>
-                <View style={styles.row}>
-                    <View style={styles.iconContainer}>
-                        <Icon name="ios-heart-outline" size={30} color="lightgray" />
-                        <Text style={styles.count}>{likes}</Text>
-                    </View>
-                    <View style={styles.iconContainer}>
-                        <Icon name="ios-chatboxes-outline" size={30} color="lightgray" />
-                        <Text style={styles.count}>{comments}</Text>
-                    </View>
-                </View>
-            </View>
-        </View>
+        <ArtistBox artist={artist} />
+        <ArtistBox artist={artist} />
+        <ArtistBox artist={artist} />
+        <ArtistBox artist={artist} />
+        <ArtistBox artist={artist} />
+        <ArtistBox artist={artist} />
       </View>
     );
   }
@@ -46,37 +40,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'lightgray',
     paddingTop: 50
-  },
-  image: {
-      width: 150,
-      height: 150
-  },
-  artistBox: {
-      backgroundColor: 'white',
-      flexDirection: 'row'
-  },
-  info: {
-      flex: 1,
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center'
-  },
-  name: {
-      fontSize: 20,
-      marginTop: 10,
-      color: '#333'
-  },
-  row: {
-    flexDirection: 'row',
-    marginHorizontal: 30,
-    marginTop: 15
-  },
-  iconContainer: {
-      flex: 1,
-      alignItems: 'center',
-  },
-  count: {
-      color: 'gray'
   }
 });
 
