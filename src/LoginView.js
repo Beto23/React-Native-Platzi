@@ -10,21 +10,14 @@ import FBSDK, {
   LoginButton,
   AccessToken
 } from 'react-native-fbsdk';
-import { Actions } from 'react-native-router-flux';
-import * as firebase from "firebase";
 
-const  config = {
-    apiKey: "AIzaSyDGfk3jMV650IMf-Xe6860duh8oMUgiK0k",
-    authDomain: "platzimusic-c2844.firebaseapp.com",
-    databaseURL: "https://platzimusic-c2844.firebaseio.com",
-    projectId: "platzimusic-c2844",
-    storageBucket: "platzimusic-c2844.appspot.com",
-    messagingSenderId: "85070023002"
-  };
-  firebase.initializeApp(config);
+import { Actions } from 'react-native-router-flux';
+
+import firebase, { firebaseAuth } from "./firebase"
+
 
 const { FacebookAuthProvider } = firebase.auth;
-const firebaseAuth = firebase.auth();
+
 
 export default class LoginView extends Component {
 
