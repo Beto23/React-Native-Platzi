@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
-  Text
+  Text,
+  Button
 } from 'react-native';
 
 import FBSDK, {
@@ -10,8 +11,43 @@ import FBSDK, {
   AccessToken
 } from 'react-native-fbsdk';
 import { Actions } from 'react-native-router-flux';
+import * as firebase from "firebase";
+
+const  config = {
+    apiKey: "AIzaSyDGfk3jMV650IMf-Xe6860duh8oMUgiK0k",
+    authDomain: "platzimusic-c2844.firebaseapp.com",
+    databaseURL: "https://platzimusic-c2844.firebaseio.com",
+    projectId: "platzimusic-c2844",
+    storageBucket: "platzimusic-c2844.appspot.com",
+    messagingSenderId: "85070023002"
+  };
+  firebase.initializeApp(config);
+
+const { FacebookAuthProvider } = firebase.auth;
+const firebaseAuth = firebase.auth();
 
 export default class LoginView extends Component {
+
+  state = {
+    credentials: null
+  }
+
+  componentWillMount() {
+    this.authenticateUser();
+  }
+
+  authenticateUser = () => {
+     AccessToken.getCurrentAccessToken().then( data => {
+      const { accessToken } = data;
+      const credential = FacebookAuthProvider.credential(accessToken);
+      firebaseAuth.signInWithCredential(credential).then((credentials) => {
+        // this.setState({credentials});
+        Actions.root()
+      }, function(error) {
+        console.warn('sign in error');
+      });
+    });
+  }
 
 
   handleLoginFinished = (error, result) => {
@@ -20,17 +56,23 @@ export default class LoginView extends Component {
     } else if (result.isCancelled) {
       alert("login is cancelled.");
     } else {
-        AccessToken.getCurrentAccessToken().then( () => {
-          Actions.root();
-        })
+          this.authenticateUser();
     }
+  }
+
+  handleButtonPress = () => {
+    Actions.root();
   }
 
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Bienvenidos a PlatziMusic</Text>
+        <Text style={styles.welcome}>Bienvenido a PlatziMusic</Text>
+        {/*<Text style={styles.welcome}>
+          {this.state.credentials && this.state.credentials.displayName}
+        </Text>
+        <Button onPress={this.handleButtonPress} title="Seguir" />*/}
         <LoginButton
                   readPermissions={["public_profile", 'email']}
                   onLoginFinished={this.handleLoginFinished}
